@@ -1,0 +1,87 @@
+int vermelho = 3;
+int amarelo = 4;
+int verde = 5;
+int tempo = 1000;
+int botao = 2;
+int verdep = 6;
+int vermp = 7;
+
+void setup(){
+    //Determina que os pinos 3,4,5 serão saídas.
+    pinMode(vermelho, OUTPUT);
+    pinMode(amarelo, OUTPUT);
+    pinMode(verde, OUTPUT);
+    pinMode(botao, INPUT);
+    pinMode(vermp, OUTPUT);
+    pinMode(verdep, OUTPUT);
+
+    controlaCor(amarelo, 1000, false);
+    controlaCor(amarelo, 1000, false);
+    controlaCor(amarelo, 1000, false);
+
+}
+
+
+void loop(){
+    
+    bool estadoBotao = false;
+    estadoBotao = digitalRead(botao);
+
+   
+   if(estadoBotao == true){
+   
+     digitalWrite(amarelo, HIGH);
+     digitalWrite(vermp, HIGH);
+     delay(3000);
+     digitalWrite(amarelo,LOW);
+     digitalWrite(vermp,LOW);
+     digitalWrite(vermelho,HIGH);
+     digitalWrite(verdep,HIGH);
+     delay(1000);
+     
+     
+   }else{
+    
+   digitalWrite(verdep, LOW);
+   digitalWrite(vermelho, LOW);
+   digitalWrite(vermp, HIGH);   
+   digitalWrite(verde, HIGH);
+   delay(6000);
+   digitalWrite(verde, LOW);
+   digitalWrite(amarelo, HIGH);
+   delay(4000);
+   digitalWrite(amarelo, LOW);
+   digitalWrite(vermelho, HIGH);
+   delay(2000);
+   digitalWrite(vermp, LOW);
+   digitalWrite(verdep, HIGH);
+   delay(3000);
+   digitalWrite(verdep, LOW);
+   digitalWrite(vermp, HIGH);   
+   delay(1000);
+
+
+
+
+   
+   }
+    
+
+}
+//Função serve para controlar a cor que eu quiser, pelo tempo que eu quiser.
+int controlaCor (int cor, int tempo, bool esta_no_loop) {
+    digitalWrite(cor, 1);
+    delay(tempo);
+    digitalWrite(cor, 0);
+    
+      
+    if(esta_no_loop == false){
+        delay(tempo);
+        return 0;
+        //se bateu aqui, é por que a função foi chamada no setup
+    }
+    else{
+        return 1;
+        //se bateu aqui, é por que a função foi chamada no Loop
+    }
+}
